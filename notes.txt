@@ -34,3 +34,5 @@ verifier si bien sous la forme a*X^p -> comparer le nombre de char pris et la le
 quid des nombres imaginaires ?
 
 si pas d'argument : prendre sur l'entrée standard
+
+https://stackoverflow.com/questions/9235456/determining-floating-point-square-root
