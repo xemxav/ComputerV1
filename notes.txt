@@ -1,0 +1,36 @@
+Pour résoudre une equation polynomial :
+
+Algorithme pour résoudre l'équation du deuxème degré: ax2 + bx + c = 0
+
+Si a = 0, on se ramène à une équation du premier degré.
+
+Si a est différent de 0,
+  on calcule le discriminant Delta = b2 - 4 * a * c
+
+  si Delta>0 l'équation a 2 racines réelles distinctes que l'on
+     calcule avec (-b+Delta)/(2*a)
+               et (-b-Delta)/(2*a)
+
+  si Delta=0, les 2 formules ci-dessus sont encore valables
+     et fournissent 2 valeurs égales -b/(2*a)
+  
+  si Delta<0, les 2 formules contenant Delta ne sont
+     plus valables dans les réels et il faut passer dans l'ensemble des nombres complexes
+     pour obtenir des réponses
+                   -b/(2*a) +i -Delta /(2*a)
+                   -b/(2*a) -i -Delta /(2*a)
+     
+   NOTE: i est un symbole tel que i2=-1
+
+   regex pour capturer les groupes : ([-+]?\s?\d+\.?\d*\s\*\sX\^\d+)
+                                       [-+]?\d+\.?\d*\*X\^\d+
+   quid si ... = n ?
+   quid si pas d'espace ? -> enlever tous les espaces re.sub(r'\s+', '', eq)
+
+verifier si qu'un seul '=' dans la string
+
+verifier si bien sous la forme a*X^p -> comparer le nombre de char pris et la len de la string -1 (on enleve le =)
+
+quid des nombres imaginaires ?
+
+si pas d'argument : prendre sur l'entrée standard
