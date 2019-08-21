@@ -1,6 +1,8 @@
 
-
+#todo : supprimer import interdit
 from math import sqrt
+
+from my_math import my_sqrt
 
 
 def first_degree(dico):
@@ -26,8 +28,8 @@ def get_discriminant(dico):
 
 def positiv_discriminant(discriminant, a, b):
     print("Discriminant is strictly positive, the two solutions are:")
-    print("%.6f" % ((-b + sqrt(discriminant)) / (2 * a)))
-    print("%.6f" % ((-b - sqrt(discriminant)) / (2 * a)))
+    print("%.6f" % ((-b + my_sqrt(discriminant)) / (2 * a)))
+    print("%.6f" % ((-b - my_sqrt(discriminant)) / (2 * a)))
 
 
 def negativ_discriminant():
@@ -39,8 +41,10 @@ def null_discriminant(discriminant, a, b):
 
 def second_degree(dico):
     discriminant, a, b, c = get_discriminant(dico)
-    print(dico)
-    print(discriminant)
+    print('dico:', dico)
+    print('discriminant', discriminant)
+    if type(discriminant) == type(float()):
+        discriminant = round(discriminant, 5)
     if discriminant > 0:
         positiv_discriminant(discriminant, a, b)
     elif discriminant < 0:
