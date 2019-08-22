@@ -35,12 +35,12 @@ def get_grouping(eq):
     len_eq = eq.__len__()
     eq = eq.split('=')
     eq = [re.findall(r'[-+]?X\^\d+|[-+]?\d+\.?\d*\*X\^\d+|[-+]?\d+\.?\d*', e) for e in eq]
-    len = 0
+    lenght = 0
     for side in eq:
         for group in side:
-            len += group.__len__()
+            lenght += group.__len__()
 
-    if len != len_eq - 1:
+    if lenght != len_eq - 1:
         error(3)
 
     for group in eq[1]:
@@ -59,11 +59,9 @@ def equation_reduction(groups):
         if re.match(r'[-+]?\d+\.?\d*\*X\^\d+', group) is not None:
             p = group.split('^')[1]
             a = float(group.split('*')[0])
-            print(a)
         else:
             p = '0'
             a = float(group)
-            print(a)
         if p in dico.keys():
             dico[p] += a
         else:
@@ -87,11 +85,14 @@ def print_simple_form(dico):
 
 
 def get_highest_expo(dico):
+
     rev_list_expo = sorted(dico.keys(), reverse=True)
+    if dico.__len__() == 1 and '0' in dico.keys():
+        return 0
     for i in rev_list_expo:
         if dico[i] != 0:
             return int(i)
-
+    return 0
 
 def main(argv):
     if len(argv) > 2:
@@ -105,9 +106,14 @@ def main(argv):
     simple_form = equation_reduction(equation)
     print_simple_form(simple_form)
     expo = get_highest_expo(simple_form)
-    print('Polynomial degree: ', expo)
+    if expo > 0:
+        print('Polynomial degree: ', expo)
     if expo > 2:
-        print("The polynomial degree is stricly greater than 2, I can't solve.")
+        print("The polynomial degree is strictly greater than 2, I can't solve.")
+    elif expo == 0 and simple_form['0'] == 0:
+        print('All the real number are solution to the equation because the sides are equal')
+    elif expo == 0 and simple_form['0'] != 0:
+        print("The sides are not equal.")
     else:
         solve(simple_form, expo)
 
