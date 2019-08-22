@@ -1,7 +1,3 @@
-
-#todo : supprimer import interdit
-from math import sqrt
-
 from my_math import my_sqrt
 
 
@@ -10,7 +6,7 @@ def first_degree(dico):
         result = dico['0'] / dico['1']
     else:
         print("The equation doesn't have a solution")
-
+    
 
 def get_discriminant(dico):
     a = 0

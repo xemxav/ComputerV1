@@ -1,39 +1,47 @@
-
-#todo : lire les arguments -> juste une string
-#todo : verifier que l'equiation est bien dans une forme a*x^p
-#todo : simplifier l'equation
-#todo : donner le la plus haute puissance
+# todo : lire les arguments -> juste une string
+# todo : verifier que l'equiation est bien dans une forme a*x^p
+# todo : simplifier l'equation
+# todo : donner le la plus haute puissance
 
 import sys
 import re
 from solver import solve
 
 
-def check_argv(argv):
-    if '-h' in argv[1:] or '--help' in argv[1:] or len(argv) == 1:
-        print("this is the help")
-        exit()
-    if len(argv) > 2:
-        return False
-    if argv[1].count('=') != 1:
-        return False
-    return True
+def error(err_code):
+    if err_code == 1:
+        print("The arguments given are not formated properly. See -h or --help for help")
+    elif err_code == 2:
+        print("The arguments given are not formated properly. See -h or --help for help")
+        print("You did not format properly in the form a * X^p")
+    exit(err_code)
+
+
+def help_computor():
+    print("this is the help")
+    exit(0)
+
+
+def check_argument(arg):
+    if '-h' in arg or '--help' in arg:
+        help_computor()
+    if arg.count('=') != 1:
+        error(2)
+    return
 
 
 def get_grouping(eq):
     eq = re.sub(r'\s+', '', eq)
     len_eq = eq.__len__()
     eq = eq.split('=')
-    eq = [re.findall(r'[-+]?\d+\.?\d*\*X\^\d+', e)for e in eq]
-
+    eq = [re.findall(r'[-+]?X\^\d+|[-+]?\d+\.?\d*\*X\^\d+|[-+]?\d+\.?\d*', e) for e in eq]
     len = 0
     for side in eq:
         for group in side:
             len += group.__len__()
 
     if len != len_eq - 1:
-        print("You did not format properly in the form a * X^p")
-        exit()
+        error(3)
 
     for group in eq[1]:
         if group.startswith('-'):
@@ -44,29 +52,37 @@ def get_grouping(eq):
             eq[0].append('-' + group)
     return eq[0]
 
+
 def equation_reduction(groups):
     dico = dict()
     for group in groups:
-        p = group.split('^')[1]
-        a = float(group.split('*')[0])
+        if re.match(r'[-+]?\d+\.?\d*\*X\^\d+', group) is not None:
+            p = group.split('^')[1]
+            a = float(group.split('*')[0])
+            print(a)
+        else:
+            p = '0'
+            a = float(group)
+            print(a)
         if p in dico.keys():
             dico[p] += a
         else:
             dico[p] = a
     return dico
 
+
 def print_simple_form(dico):
     list_expo = sorted(dico.keys())
     simple_form = str()
     for i in list_expo:
         if dico[i] < 0:
-            simple_form += '- ' + str(dico[i] * -1) + ' * X^'+i
+            simple_form += '- ' + str(dico[i] * -1) + ' * X^' + i
         else:
             simple_form += '+ ' + str(dico[i]) + ' * X^' + i + ' '
     if simple_form.startswith('+'):
         simple_form = simple_form[2:]
     simple_form += ' = 0'
-    print("Reduced form:",simple_form)
+    print("Reduced form:", simple_form)
     return
 
 
@@ -78,9 +94,14 @@ def get_highest_expo(dico):
 
 
 def main(argv):
-    if not check_argv(argv):
-        print("The arguments given are not formated properly. See -h or --help for help")
-    equation = get_grouping(argv[1])
+    if len(argv) > 2:
+        error(1)
+    if len(argv) == 1:
+        argument = input("Enter your equation or -h/--help for help: ")
+    else:
+        argument = argv[1]
+    check_argument(argument)
+    equation = get_grouping(argument)
     simple_form = equation_reduction(equation)
     print_simple_form(simple_form)
     expo = get_highest_expo(simple_form)
@@ -93,4 +114,4 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv)
-    exit()
+    exit(0)

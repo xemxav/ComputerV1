@@ -22,9 +22,11 @@ Si a est différent de 0,
      
    NOTE: i est un symbole tel que i2=-1
 
-   regex pour capturer les groupes : ([-+]?\s?\d+\.?\d*\s\*\sX\^\d+)
+regex pour capturer les groupes : ([-+]?\s?\d+\.?\d*\s\*\sX\^\d+)
                                        [-+]?\d+\.?\d*\*X\^\d+
-   quid si ... = n ?
+
+
+   quid si ... = n ? [-+]?X\^\d+|[-+]?\d+\.?\d*\*X\^\d+|[-+]?\d+\.?\d*
    quid si pas d'espace ? -> enlever tous les espaces re.sub(r'\s+', '', eq)
 
 verifier si qu'un seul '=' dans la string
@@ -36,3 +38,5 @@ quid des nombres imaginaires ?
 si pas d'argument : prendre sur l'entrée standard
 
 https://stackoverflow.com/questions/9235456/determining-floating-point-square-root
+
+Proposer de prendre sur l'entrée standard la formule
