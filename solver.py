@@ -1,11 +1,13 @@
-from my_math import my_sqrt
+from my_math import my_sqrt, my_abs
 
 
-def print_solution(solution):
-    if not solution.is_integer():
-        print(solution)
+def print_solution(solution, ending='\n'):
+    if isinstance(solution, str):
+        print(solution, end=ending)
+    if isinstance(solution, float) and not solution.is_integer():
+        print("%.5f" % solution, end=ending)
     else:
-        print("%d" % solution)
+        print("%d" % solution, end=ending)
     return
 
 
@@ -29,7 +31,6 @@ def get_discriminant(dico):
         b = dico['1']
     if '2' in dico.keys():
         a = dico['2']
-    print(a, b, c)
     return (b * b) - (4 * a * c), a, b, c
 
 
@@ -39,28 +40,40 @@ def positiv_discriminant(discriminant, a, b):
     print_solution(((-b - my_sqrt(discriminant)) / (2 * a)))
 
 
-def negativ_discriminant():
-    print("Discriminant is strictly negative, the equation does not have solution in real number:")
+def negativ_discriminant(discriminant, a, b):
+    print("Discriminant is strictly negative, the equation does not have solution in R but admits 2 solutions in C:")
+
+    print('(', end='')
+    print_solution(b * -1, ending='')
+    print(' - i', end='')
+    print_solution(my_sqrt(my_abs(discriminant)), ending='')
+    print(') / ', end='')
+    print_solution(2 * a)
+
+    print('(', end='')
+    print_solution(b * -1, ending='')
+    print(' + i', end='')
+    print_solution(my_sqrt(my_abs(discriminant)), ending='')
+    print(') / ', end='')
+    print_solution(2 * a)
+    return
 
 
-def null_discriminant(discriminant, a, b):
+def null_discriminant(a, b):
     print("Discriminant is equal to zero, the only solution is:")
     print_solution(-b / (2 * a))
 
 
 def second_degree(dico):
     discriminant, a, b, c = get_discriminant(dico)
-    print('dico:', dico)
-    print('discriminant', discriminant)
-    if type(discriminant) == type(float()):
+    if isinstance(discriminant, float):
         discriminant = round(discriminant, 5)
     if discriminant > 0:
         positiv_discriminant(discriminant, a, b)
     elif discriminant < 0:
-        negativ_discriminant()
+        negativ_discriminant(discriminant, a, b)
     elif discriminant == 0:
-        null_discriminant(discriminant, a, b)
-
+        null_discriminant(a, b)
 
 
 def solve(simple_form, expo):

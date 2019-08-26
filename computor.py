@@ -18,7 +18,14 @@ def error(err_code):
 
 
 def help_computor():
-    print("this is the help")
+    print("Computor is a tool to solve polynomial equation up to degree 2")
+    print("Usage : Python computor.py [-h] [--help] [equation]", end="\n\n")
+    print("Please enter your equation as a string as computor's first parameter.")
+    print("Or you can launch computer withour any parameter and it will let you enter your equation.")
+    print("Please enter your equation as follow :")
+    print("A * X^P + ... A_n * X^P_n =  A_n+1 + X^P_n+1")
+    print("Each member of the equation must have at least one number (decimal or not)", end="\n\n")
+    print("Type -h or --h to see the help again")
     exit(0)
 
 
@@ -41,7 +48,7 @@ def get_grouping(eq):
             lenght += group.__len__()
 
     if lenght != len_eq - 1:
-        error(3)
+        error(2)
 
     for group in eq[1]:
         if group.startswith('-'):
@@ -59,9 +66,17 @@ def equation_reduction(groups):
         if re.match(r'[-+]?\d+\.?\d*\*X\^\d+', group) is not None:
             p = group.split('^')[1]
             a = float(group.split('*')[0])
-        else:
+        elif re.match(r'[-+]?X\^\d+', group) is not None:
+            p = group.split('^')[1]
+            if group.startswith('+'):
+                a = 1
+            else:
+                a = -1
+        elif re.match(r'[-+]?\d+\.?\d*', group) is not None:
             p = '0'
             a = float(group)
+        else:
+            error(2)
         if p in dico.keys():
             dico[p] += a
         else:

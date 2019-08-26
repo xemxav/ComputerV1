@@ -27,6 +27,15 @@ regex pour capturer les groupes : ([-+]?\s?\d+\.?\d*\s\*\sX\^\d+)
 
 
    quid si ... = n ? [-+]?X\^\d+|[-+]?\d+\.?\d*\*X\^\d+|[-+]?\d+\.?\d*
+
+   [-+]?X\^\d+ >  sans chiffre avant le X et la puissnce
+
+   [-+]?\d+\.?\d*\*X\^\d+ > formaté correctement
+
+   [-+]?\d+\.?\d* > uniqiauement un chiffre
+
+   [-+]?\d+\.?\d*\*X >pas d'exposant
+
    quid si pas d'espace ? -> enlever tous les espaces re.sub(r'\s+', '', eq)
 
 verifier si qu'un seul '=' dans la string
