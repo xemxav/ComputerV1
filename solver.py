@@ -44,18 +44,22 @@ def negativ_discriminant(discriminant, a, b):
     print("Discriminant is strictly negative, the equation does not have solution in R but admits 2 solutions in C:")
 
     print('(', end='')
-    print_solution(b * -1, ending='')
-    print(' - i', end='')
+    if b != 0:
+        print_solution(b * -1, ending='')
+    print(' - i * ', end='')
     print_solution(my_sqrt(my_abs(discriminant)), ending='')
-    print(') / ', end='')
-    print_solution(2 * a)
+    if a != 0:
+        print(') / ', end='')
+        print_solution(2 * a)
 
     print('(', end='')
-    print_solution(b * -1, ending='')
-    print(' + i', end='')
+    if b != 0:
+        print_solution(b * -1, ending='')
+    print(' + i * ', end='')
     print_solution(my_sqrt(my_abs(discriminant)), ending='')
-    print(') / ', end='')
-    print_solution(2 * a)
+    if a != 0:
+        print(') / ', end='')
+        print_solution(2 * a)
     return
 
 
