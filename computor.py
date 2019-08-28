@@ -1,7 +1,4 @@
-# todo : lire les arguments -> juste une string
-# todo : verifier que l'equiation est bien dans une forme a*x^p
-# todo : simplifier l'equation
-# todo : donner le la plus haute puissance
+#!/usr/bin/venv python3
 
 import sys
 import re
@@ -15,7 +12,7 @@ def error(err_code):
         print("The arguments given are not formatted properly. See -h or --help for help")
         print("You did not format properly in the form a * X^p")
     elif err_code == 4:
-        print("An error has occured.")
+        print("An error has occurred.")
     exit(err_code)
 
 
@@ -65,6 +62,8 @@ def get_grouping(eq):
 def equation_reduction(groups):
     dico = dict()
     for group in groups:
+        a = 0
+        p = ''
         if re.match(r'[-+]?\d+\.?\d*\*X\^[-+]?\d+\.?\d*', group) is not None:
             p = group.split('^')[1]
             a = float(group.split('*')[0])
@@ -81,11 +80,9 @@ def equation_reduction(groups):
             dico[p] = a
 
     to_remove = list()
-    print(dico)
     for p in dico:
         if dico[p] == 0:
             to_remove.append(p)
-    print(to_remove)
     for p in to_remove:
         dico.pop(p)
     return dico
@@ -110,7 +107,8 @@ def print_simple_form(dico):
 
 def check_expo(dico):
     error = False
-    if len(dico) == 0  or (len(dico) == 1 and '0' in dico.keys() and dico['0'] == 0):
+    expo = 0
+    if len(dico) == 0 or (len(dico) == 1 and '0' in dico.keys() and dico['0'] == 0):
         err_message = 'All the real number are solution to the equation because the sides are equal.'
         error = True
     if len(dico) == 1 and '0' in dico.keys() and dico['0'] != 0:
@@ -123,7 +121,7 @@ def check_expo(dico):
     rev_list_expo = sorted(dico.keys(), reverse=True)
     for i in rev_list_expo:
         if dico[i] != 0:
-            expo =  float(i)
+            expo = float(i)
             expo_str = i
             break
     print('Polynomial degree:', expo_str)
@@ -135,6 +133,7 @@ def check_expo(dico):
             print("Computor doesn't accept negativ coefficient.")
             exit(0)
     return expo
+
 
 def main(argv):
     if len(argv) > 2:
@@ -154,6 +153,7 @@ def main(argv):
         print("The polynomial degree is stricly greater than 2, I can't solve.")
     else:
         solve(simple_form, expo)
+
 
 if __name__ == '__main__':
     main(sys.argv)

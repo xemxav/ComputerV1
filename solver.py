@@ -1,8 +1,11 @@
+#!/usr/bin/venv python3
+
+
 def print_solution(solution, ending='\n'):
     if isinstance(solution, str):
         print(solution, end=ending)
     if isinstance(solution, float) and not solution.is_integer():
-        print("%.5f" % solution, end=ending)
+        print(("%.5f" % solution).rstrip('0').rstrip('.'), end=ending)
     else:
         print("%d" % solution, end=ending)
     return
@@ -33,8 +36,8 @@ def get_discriminant(dico):
 
 def positiv_discriminant(discriminant, a, b):
     print("Discriminant is strictly positive, the two solutions are:")
-    print_solution(((-b + (discriminant) ** (1/2)) / (2 * a)))
-    print_solution(((-b - (discriminant) ** (1/2)) / (2 * a)))
+    print_solution((-b + discriminant ** (1 / 2)) / (2 * a))
+    print_solution((-b - discriminant ** (1 / 2)) / (2 * a))
 
 
 def negativ_discriminant(discriminant, a, b):
@@ -44,7 +47,7 @@ def negativ_discriminant(discriminant, a, b):
     if b != 0:
         print_solution(b * -1, ending='')
     print(' - i * ', end='')
-    print_solution((abs(discriminant) ** (1/2)), ending='')
+    print_solution((abs(discriminant) ** (1 / 2)), ending='')
     if a != 0:
         print(') / ', end='')
         print_solution(2 * a)
@@ -53,7 +56,7 @@ def negativ_discriminant(discriminant, a, b):
     if b != 0:
         print_solution(b * -1, ending='')
     print(' + i * ', end='')
-    print_solution((abs(discriminant)) ** (1/2), ending='')
+    print_solution((abs(discriminant)) ** (1 / 2), ending='')
     if a != 0:
         print(') / ', end='')
         print_solution(2 * a)
@@ -62,6 +65,9 @@ def negativ_discriminant(discriminant, a, b):
 
 def null_discriminant(a, b):
     print("Discriminant is equal to zero, the only solution is:")
+    print_solution(-b, ending=" / ")
+    print_solution(2 * a)
+    print('equal to')
     print_solution(-b / (2 * a))
 
 
