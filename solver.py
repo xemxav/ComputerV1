@@ -1,6 +1,3 @@
-from my_math import my_sqrt, my_abs
-
-
 def print_solution(solution, ending='\n'):
     if isinstance(solution, str):
         print(solution, end=ending)
@@ -31,13 +28,13 @@ def get_discriminant(dico):
         b = dico['1']
     if '2' in dico.keys():
         a = dico['2']
-    return (b * b) - (4 * a * c), a, b, c
+    return (b ** 2) - (4 * a * c), a, b, c
 
 
 def positiv_discriminant(discriminant, a, b):
     print("Discriminant is strictly positive, the two solutions are:")
-    print_solution(((-b + my_sqrt(discriminant)) / (2 * a)))
-    print_solution(((-b - my_sqrt(discriminant)) / (2 * a)))
+    print_solution(((-b + (discriminant) ** (1/2)) / (2 * a)))
+    print_solution(((-b - (discriminant) ** (1/2)) / (2 * a)))
 
 
 def negativ_discriminant(discriminant, a, b):
@@ -47,7 +44,7 @@ def negativ_discriminant(discriminant, a, b):
     if b != 0:
         print_solution(b * -1, ending='')
     print(' - i * ', end='')
-    print_solution(my_sqrt(my_abs(discriminant)), ending='')
+    print_solution((abs(discriminant) ** (1/2)), ending='')
     if a != 0:
         print(') / ', end='')
         print_solution(2 * a)
@@ -56,7 +53,7 @@ def negativ_discriminant(discriminant, a, b):
     if b != 0:
         print_solution(b * -1, ending='')
     print(' + i * ', end='')
-    print_solution(my_sqrt(my_abs(discriminant)), ending='')
+    print_solution((abs(discriminant)) ** (1/2), ending='')
     if a != 0:
         print(') / ', end='')
         print_solution(2 * a)
