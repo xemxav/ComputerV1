@@ -40,6 +40,8 @@ def get_grouping(eq):
     eq = re.sub(r'\s+', '', eq)
     len_eq = eq.__len__()
     eq = eq.split('=')
+    if eq[1] == '':
+        error(1)
     eq = [re.findall(r'[-+]?\d+\.?\d*\*X\^[-+]?\d+\.?\d*|[-+]?\d+\.?\d*', e) for e in eq]
     lenght = 0
     for side in eq:

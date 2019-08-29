@@ -46,7 +46,9 @@ def negativ_discriminant(discriminant, a, b):
     print('(', end='')
     if b != 0:
         print_solution(b * -1, ending='')
-    print(' - i * ', end='')
+        print(' - i * ', end='')
+    else:
+        print('- i * ', end='')
     print_solution((abs(discriminant) ** (1 / 2)), ending='')
     if a != 0:
         print(') / ', end='')
@@ -55,7 +57,9 @@ def negativ_discriminant(discriminant, a, b):
     print('(', end='')
     if b != 0:
         print_solution(b * -1, ending='')
-    print(' + i * ', end='')
+        print(' + i * ', end='')
+    else:
+        print('i * ', end='')
     print_solution((abs(discriminant)) ** (1 / 2), ending='')
     if a != 0:
         print(') / ', end='')
