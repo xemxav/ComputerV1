@@ -3,7 +3,7 @@
 import sys
 import re
 from solver import solve
-
+from formating import proper_formating
 
 def error(err_code):
     if err_code == 1:
@@ -67,7 +67,7 @@ def equation_reduction(groups):
         a = 0
         p = ''
         if re.match(r'[-+]?\d+\.?\d*\*X\^[-+]?\d+\.?\d*', group) is not None:
-            p = group.split('^')[1]
+            p = proper_formating(float(group.split('^')[1]))
             a = float(group.split('*')[0])
         elif re.match(r'[-+]?\d+\.?\d*', group) is not None:
             p = '0'
