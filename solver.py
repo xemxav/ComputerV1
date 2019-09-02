@@ -1,14 +1,6 @@
 #!/usr/bin/venv python3
 
-
-def print_solution(solution, ending='\n'):
-    if isinstance(solution, str):
-        print(solution, end=ending)
-    if isinstance(solution, float) and not solution.is_integer():
-        print(("%.5f" % solution).rstrip('0').rstrip('.'), end=ending)
-    else:
-        print("%d" % solution, end=ending)
-    return
+from formating import print_solution, proper_formating
 
 
 def first_degree(dico):
@@ -43,27 +35,23 @@ def positiv_discriminant(discriminant, a, b):
 def negativ_discriminant(discriminant, a, b):
     print("Discriminant is strictly negative, the equation does not have solution in R but admits 2 solutions in C:")
 
-    print('(', end='')
+    s1 = '('
     if b != 0:
-        print_solution(b * -1, ending='')
-        print(' - i * ', end='')
+        start_minus = proper_formating(b * -1) + ' - i * '
     else:
-        print('- i * ', end='')
-    print_solution((abs(discriminant) ** (1 / 2)), ending='')
-    if a != 0:
-        print(') / ', end='')
-        print_solution(2 * a)
-
-    print('(', end='')
+        start_minus = '- i * '
+    s1 += start_minus + proper_formating(abs(discriminant) ** (1 / 2)) + ') / ' + proper_formating(2 * a) + '\nor\n'
+    s1 += start_minus + proper_formating((abs(discriminant) ** (1 / 2)) / (2 * a))
+    print(s1)
+    print('and')
+    s2 = '('
     if b != 0:
-        print_solution(b * -1, ending='')
-        print(' + i * ', end='')
+        start_plus = proper_formating(b * -1) + ' + i * '
     else:
-        print('i * ', end='')
-    print_solution((abs(discriminant)) ** (1 / 2), ending='')
-    if a != 0:
-        print(') / ', end='')
-        print_solution(2 * a)
+        start_plus = 'i * '
+    s2 += start_plus + proper_formating(abs(discriminant) ** (1 / 2)) + ') / ' + proper_formating(2 * a) + '\nor\n'
+    s2 += start_plus + proper_formating((abs(discriminant) ** (1 / 2)) / (2 * a))
+    print(s2)
     return
 
 
