@@ -13,7 +13,7 @@ def print_solution(solution, ending='\n'):
 
 def first_degree(dico):
     if dico['1'] != 0:
-        result = dico['0'] / dico['1']
+        result = (-1 * dico['0']) / dico['1']
         print("The only solution is:")
         print_solution(result)
     else:
