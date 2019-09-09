@@ -1,3 +1,6 @@
+#!/Users/xmoreau/.brew/opt/python/bin/python3.7
+
+
 def print_solution(solution, ending='\n'):
     if isinstance(solution, str):
         print(solution, end=ending)
