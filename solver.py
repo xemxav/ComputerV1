@@ -1,6 +1,7 @@
-#!/usr/bin/venv python3
+#!/Users/xmoreau/.brew/opt/python/bin/python3.7
 
 from formating import print_solution, proper_formating
+from my_math import my_abs, my_sqrt
 
 
 def first_degree(dico):
@@ -23,34 +24,43 @@ def get_discriminant(dico):
         b = dico['1']
     if '2' in dico.keys():
         a = dico['2']
-    return (b ** 2) - (4 * a * c), a, b, c
+    return (b * b) - (4 * a * c), a, b, c
 
 
 def positiv_discriminant(discriminant, a, b):
     print("Discriminant is strictly positive, the two solutions are:")
-    print_solution((-b + discriminant ** (1 / 2)) / (2 * a))
-    print_solution((-b - discriminant ** (1 / 2)) / (2 * a))
+    sqrt_discri = my_sqrt(discriminant)
+    print_solution((-b + sqrt_discri) / (2 * a))
+    print_solution((-b - sqrt_discri) / (2 * a))
 
 
 def negativ_discriminant(discriminant, a, b):
     print("Discriminant is strictly negative, the equation does not have solution in R but admits 2 solutions in C:")
 
+    sqrt_discri = my_sqrt(my_abs(discriminant))
     s1 = '('
+    top = proper_formating(sqrt_discri) + ') / ' + proper_formating(2 * a) + '\nor\n'
+    bottom_1 = proper_formating(sqrt_discri / (2 * a))
+
     if b != 0:
         start_minus = proper_formating(b * -1) + ' - i * '
+        start_minus_red = proper_formating((b * -1) / (2 * a)) + ' - i * '
     else:
         start_minus = '- i * '
-    s1 += start_minus + proper_formating(abs(discriminant) ** (1 / 2)) + ') / ' + proper_formating(2 * a) + '\nor\n'
-    s1 += start_minus + proper_formating((abs(discriminant) ** (1 / 2)) / (2 * a))
+        start_minus_red = '- i * '
+    s1 += start_minus + proper_formating(sqrt_discri) + ') / ' + proper_formating(2 * a) + '\nor\n'
+    s1 += start_minus_red + proper_formating(sqrt_discri / (2 * a))
     print(s1)
     print('and')
     s2 = '('
     if b != 0:
         start_plus = proper_formating(b * -1) + ' + i * '
+        start_plus_red = proper_formating((b * -1) / (2 * a)) + ' + i * '
     else:
         start_plus = 'i * '
-    s2 += start_plus + proper_formating(abs(discriminant) ** (1 / 2)) + ') / ' + proper_formating(2 * a) + '\nor\n'
-    s2 += start_plus + proper_formating((abs(discriminant) ** (1 / 2)) / (2 * a))
+        start_plus_red = 'i * '
+    s2 += start_plus + proper_formating(sqrt_discri) + ') / ' + proper_formating(2 * a) + '\nor\n'
+    s2 += start_plus_red + proper_formating(sqrt_discri / (2 * a))
     print(s2)
     return
 
